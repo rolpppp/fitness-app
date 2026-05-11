@@ -63,12 +63,12 @@ public class RunController {
 
     @PutMapping("/runs/{id}")
     private void updateRun(@PathVariable int id, @RequestBody Run run){
-        Optional<Run> runTemp = this.runRepo.findById(id);
+        Optional<Run> existingRun = this.runRepo.findById(id);
 
-        if (runTemp.isEmpty()){
+        if (existingRun.isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }else{
-            this.runRepo.updateRun(id, run);
+            this.runRepo.updateRun(existingRun, run);
         }
     }
     

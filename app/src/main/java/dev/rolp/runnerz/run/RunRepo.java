@@ -7,9 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.annotation.PostConstruct;
 
@@ -39,14 +36,8 @@ public class RunRepo {
     }
 
     // PUT
-    void updateRun(int id, Run run){
-        for (int i = 0; i < runs.size(); i++){
-                Run currentRun = runs.get(i);
-
-                if (currentRun.id() == id){
-                        runs.set(i, run);
-                }
-        }
+    void updateRun(Optional<Run> existingRun, Run run){
+        runs.set(runs.indexOf(existingRun.get()), run);
     }
 
     
@@ -92,6 +83,5 @@ public class RunRepo {
                 6.4,
                 "Baybay"
         ));
-
     }
 }
